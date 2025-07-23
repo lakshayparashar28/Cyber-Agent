@@ -105,7 +105,7 @@ def main():
         else:
             new_entry.to_csv("data/login_logs.csv", mode='a', header=False, index=False)
 
-        st.success("✅ Login entry saved to login_logs.csv")
+        ## st.success("✅ Login entry saved to login_logs.csv")
         model, le_user, le_geo, le_device = load_models()
 
         user_enc = le_user.transform([user_id])[0] if user_id in le_user.classes_ else -1

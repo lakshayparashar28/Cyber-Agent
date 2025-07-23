@@ -50001,3 +50001,12 @@ timestamp,user_id,ip_address,geo_location,login_success,device,attempt_count
 2025-07-21 10:40:31,user_20,183.31.237.121,Congo,1,Android,4
 2025-07-23 12:52:01,123,6.9.0.9,delhi,windows,3,1
 2025-07-23 12:55:58,124,6.9.0.9,delhi,windows,3,1
+2025-07-23 14:53:01,user 24,1.43.22.34,delhi,windows,2,1
+2025-07-23 14:53:56,user 24,1.43.22.34,delhi,windows,2,1
+2025-07-23 14:55:18,user 24,1.43.22.34,delhi,windows,2,1
+2025-07-23 14:55:26,user 24,1.43.22.34,delhi,windows,2,1
+2025-07-23 14:56:07,user 24,1.43.22.34,delhi,windows,2,1
+2025-07-23 23:57:27,user 123,39.33.44.51,Noida,windows,1,0
+2025-07-23 23:58:36,user 123,39.33.44.51,Noida,windows,1,0
+2025-07-24 00:00:46,user 123,39.33.44.51,Noida,windows,1,0
+2025-07-24 00:02:23,user 123,39.33.44.51,Noida,windows,1,0

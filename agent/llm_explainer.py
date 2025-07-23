@@ -1,48 +1,40 @@
-import requests
-import json
+# agent/llm_explainer.py
+
+from groq import Groq
+import os
+
+client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
 def explain_anomaly(record):
+    """
+    Generates an explanation for a suspicious login record using Groq AI.
+    """
+
     prompt = f"""
-You are a cybersecurity analyst AI. Explain in clear, human-readable terms why the following login event might be suspicious:
+You are a cybersecurity expert LLM agent.
+Analyze the following login record and generate a clear, short explanation of why it might be an anomaly:
 
-Login Event:
-- Timestamp: {record['timestamp']}
-- User ID: {record['user_id']}
-- IP Address: {record['ip_address']}
-- Geo Location: {record['geo_location']}
-- Device: {record['device']}
-- Attempt Count: {record['attempt_count']}
-- Login Success: {record['login_success']}
+Timestamp: {record['timestamp']}
+User ID: {record['user_id']}
+IP Address: {record['ip_address']}
+Geo Location: {record['geo_location']}
+Device: {record['device']}
+Attempt Count: {record['attempt_count']}
+Login Success: {record['login_success']}
 
-Include potential reasons like unusual location, time, failed attempts, or device changes.
+List clear reasons based on unusual patterns, suspicious locations, failed attempts, or new device usage.
+End with a recommendation if needed.
 """
 
-    # Ollama local inference
-    response = requests.post(
-        "http://localhost:11434/api/generate",
-        json={
-            "model": "llama3",
-            "prompt": prompt,
-            "stream": False
-        }
-    )
-
-    result = response.json()
-    explanation = result.get("response", "").strip()
-    return explanation
-
-if __name__ == "__main__":
-    # Example usage for testing
-    test_record = {
-        "timestamp": "2025-07-21 03:00:00",
-        "user_id": "user_17",
-        "ip_address": "103.21.244.0",
-        "geo_location": "China",
-        "device": "Android",
-        "attempt_count": 12,
-        "login_success": 0
-    }
-
-    explanation = explain_anomaly(test_record)
-    print("[✔] Explanation generated:\n")
-    print(explanation)
+    try:
+        response = client.chat.completions.create(
+            model="llama3-70b-8192",
+            messages=[
+                {"role": "system", "content": "You are a helpful cybersecurity LLM explainer."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        explanation = response.choices[0].message.content.strip()
+        return explanation
+    except Exception as e:
+        return f"⚠️ LLM explanation could not be generated. Reason: {e}"
