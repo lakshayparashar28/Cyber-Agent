@@ -1,0 +1,116 @@
+# 🚨 Agentic AI Cyber Security - Login Anomaly Detection System
+
+A **complete, agentic AI-powered cybersecurity system** that:
+
+✅ Detects suspicious login attempts in real time  
+✅ Uses **LLM (LLaMA) for human-readable explanations** of anomalies  
+✅ Sends **Telegram alerts** on suspicious logins  
+✅ Includes a **Streamlit front-end** with:
+- 📂 Batch CSV upload for anomaly scanning
+- 🖊️ Manual single login anomaly checking
+- 📊 Dashboard to view all suspicious logins with explanations
+
+Built using:
+- **Python, Streamlit**
+- **Isolation Forest anomaly detection**
+- **LLaMA for interpretability**
+- **Telegram Bot integration**
+- **Pandas, Scikit-learn, Joblib**
+
+---
+
+## 🚀 Features
+
+✅ **Automatic anomaly detection** for login attempts using Isolation Forest  
+✅ **LLM explanations** for detected anomalies for non-technical stakeholders  
+✅ **Telegram notifications** for real-time alerting  
+✅ **Streamlit app**:
+- Upload CSV files to scan login data in bulk
+- Manual form entry to check individual login attempts
+- Immediate results with explanations  
+✅ **Auto-storing logs** in:
+- `data/login_logs.csv`
+- `data/suspicious_logins_with_explanations.csv`  
+✅ Clean, simple, ready-to-deploy system for demos, internships, and portfolio.
+
+---
+
+## 🗂️ Project Structure
+
+cyber_agent/
+│
+├── agent/
+│ └── llm_explainer.py # LLaMA-powered explanation generator
+│
+├── data/
+│ ├── login_logs.csv # Stores all login attempts
+│ └── suspicious_logins_with_explanations.csv # Stores suspicious attempts with explanations
+│
+├── models/
+│ ├── anomaly_detector.pkl # Trained Isolation Forest model
+│ ├── le_user.pkl # Label encoder for user IDs
+│ ├── le_geo.pkl # Label encoder for geo locations
+│ └── le_device.pkl # Label encoder for devices
+│
+├── notify_telegram.py # Telegram notification sender
+├── login_interface.py # Streamlit front-end app
+├── dashboard_app.py # Optional dashboard for viewing CSV data
+└── pipeline_run.py # Automated pipeline for batch processing
+
+---
+
+## ⚙️ Setup Instructions
+
+1️⃣ **Clone the repository**:
+
+git clone https://github.com/lakshayparashar28/cyber_agent.git
+cd cyber_agent
+
+2️⃣ Create and activate virtual environment:
+python -m venv env
+.\env\Scripts\activate      # On Windows
+source env/bin/activate     # On Mac/Linux
+
+3️⃣ Install dependencies:
+pip install -r requirements.txt
+
+4️⃣ Set up your Telegram Bot:
+
+Create a bot via @BotFather.
+
+Get the bot token and your Telegram chat ID.
+
+Save them in a bot_credentials.txt file (first line: token, second line: chat ID).
+
+🚀 Running the Project
+1️⃣ Run the Front-End App
+Launch the app to use drag-and-drop CSV upload and manual login entry:
+
+streamlit run login_interface.py
+
+Use the batch upload for bulk file scanning.
+Use manual entry to check new logins live.
+Explanations will display immediately, using your LLaMA explainer.
+
+🧠 How It Works
+✅ Model Training: Trained an Isolation Forest on historical login data for anomaly detection.
+✅ Prediction: Flags new logins as suspicious if outliers.
+✅ Explanation: Uses LLaMA (or your local LLM) to generate readable, explainable reasons for suspicion.
+✅ Alerting: Sends a Telegram message instantly if a suspicious login is detected.
+✅ Logging: Stores all login attempts and flagged suspicious attempts for audit and review.
+
+📊 Demo
+https://your-demo-link-if-any
+
+🤝 Contributions
+Pull requests are welcome. Please open issues to discuss changes.
+
+🛡️ License
+This project is for educational, personal, and portfolio use. If you wish to deploy commercially, please ensure your data compliance practices are aligned with your organization's policies.
+
+🙌 Credits
+Built by Lakshay Parashar
+Guided by ChatGPT & OpenAI
+Special thanks to LLaMA and the open-source community.
+
+
