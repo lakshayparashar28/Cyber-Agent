@@ -71,6 +71,12 @@ def process_uploaded_file(df_uploaded):
 
 def main():
     st.title("🚨 Agentic AI Cyber Security - Login Anomaly Checker")
+    st.header("📊 View Live Dashboard")
+if st.button("Open Live Dashboard in New Tab 🚀"):
+    st.markdown(
+        '<a href="https://lakshay-cyber-dashboard.streamlit.app" target="_blank">Click here to view your live dashboard</a>',
+        unsafe_allow_html=True
+    )
 
     st.header("📂 Batch Upload for Anomaly Check")
     uploaded_file = st.file_uploader("Upload CSV file for batch login anomaly check", type=["csv"])
