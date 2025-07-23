@@ -71,13 +71,7 @@ def process_uploaded_file(df_uploaded):
 
 def main():
     st.title("🚨 Agentic AI Cyber Security - Login Anomaly Checker")
-    st.header("📊 View Live Dashboard")
-if st.button("Open Live Dashboard in New Tab 🚀"):
-    st.markdown(
-        '<a href="https://lakshay-cyber-dashboard.streamlit.app" target="_blank">Click here to view your live dashboard</a>',
-        unsafe_allow_html=True
-    )
-
+    
     st.header("📂 Batch Upload for Anomaly Check")
     uploaded_file = st.file_uploader("Upload CSV file for batch login anomaly check", type=["csv"])
     if uploaded_file is not None:
@@ -160,7 +154,17 @@ if st.button("Open Live Dashboard in New Tab 🚀"):
         else:
             st.success("✅ Login is normal. No anomaly detected.")
             st.write(explanation)
+            
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Agentic AI Cyber Security", page_icon="🚨")
     main()
+    
+st.markdown("---")
+st.header("📊 View Live Dashboard")
+
+if st.button("Check Live Dashboard"):
+    dashboard_url = "https://lakshay-cyber-dashboard.streamlit.app"
+    js = f"window.open('{dashboard_url}')"  # JavaScript to open in new tab
+    st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+    
