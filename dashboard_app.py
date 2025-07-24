@@ -1,41 +1,73 @@
-# dashboard_app.py (cleaned and final)
+# dashboard_app.py (Upgraded, clean, and attractive)
 
 import streamlit as st
 import pandas as pd
+from datetime import datetime
 
-st.set_page_config(page_title="Agentic AI Cyber Security Dashboard", layout="wide")
+st.set_page_config(
+    page_title="🚨 Agentic AI Cyber Security Dashboard",
+    layout="wide",
+    page_icon="🚨"
+)
 
-st.title("📊 Agentic AI Cyber Security Dashboard")
-st.write("This dashboard displays **stored login data** and **detected suspicious logins** in real time.")
+# Auto-refresh every 10 seconds
+st.experimental_set_query_params(_=datetime.now().strftime("%H%M%S"))
 
-# Display stored login data
-st.header("✅ All Login Logs")
+st.title("🚨 Agentic AI Cyber Security Dashboard")
+
+# Load data
 try:
     df_logs = pd.read_csv("data/login_logs.csv")
-    st.dataframe(df_logs, use_container_width=True)
 except FileNotFoundError:
-    st.warning("No login_logs.csv found yet. Please add data using the login interface.")
+    df_logs = pd.DataFrame()
 
-# Display suspicious logins with explanations
-st.header("🚨 Suspicious Logins Detected")
 try:
     df_suspicious = pd.read_csv("data/suspicious_logins_with_explanations.csv")
-    st.dataframe(df_suspicious, use_container_width=True)
 except FileNotFoundError:
-    st.warning("No suspicious_logins_with_explanations.csv found yet. No suspicious logins detected so far.")
+    df_suspicious = pd.DataFrame()
 
-# Optional: Download buttons
-st.header("⬇️ Download Data")
-col1, col2 = st.columns(2)
-
+# Summary cards
+col1, col2, col3 = st.columns(3)
 with col1:
-    if "df_logs" in locals():
-        csv = df_logs.to_csv(index=False).encode('utf-8')
-        st.download_button("Download login_logs.csv", csv, "login_logs.csv", "text/csv")
-
+    st.metric("✅ Total Login Attempts", len(df_logs) if not df_logs.empty else 0)
 with col2:
-    if "df_suspicious" in locals():
-        csv_s = df_suspicious.to_csv(index=False).encode('utf-8')
-        st.download_button("Download suspicious_logins_with_explanations.csv", csv_s, "suspicious_logins_with_explanations.csv", "text/csv")
+    st.metric("🚨 Suspicious Logins", len(df_suspicious) if not df_suspicious.empty else 0)
+with col3:
+    st.metric("🕒 Last Updated", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-st.success("Dashboard loaded successfully.")
+st.markdown("---")
+
+# Login logs section
+st.subheader("✅ All Login Logs (Live)")
+if not df_logs.empty:
+    st.dataframe(df_logs.tail(100), use_container_width=True)
+else:
+    st.info("No login logs available yet. Submit data from your login interface.")
+
+# Suspicious logs section
+st.subheader("🚨 Suspicious Logins Detected (Live)")
+if not df_suspicious.empty:
+    st.dataframe(df_suspicious.tail(100), use_container_width=True)
+else:
+    st.success("No suspicious logins detected so far. Your system is secure.")
+
+# Download section
+st.markdown("---")
+st.subheader("⬇️ Download Data")
+
+col_dl1, col_dl2 = st.columns(2)
+with col_dl1:
+    if not df_logs.empty:
+        csv_logs = df_logs.to_csv(index=False).encode('utf-8')
+        st.download_button("Download All Login Logs", csv_logs, "login_logs.csv", "text/csv")
+    else:
+        st.info("No login logs to download yet.")
+
+with col_dl2:
+    if not df_suspicious.empty:
+        csv_suspicious = df_suspicious.to_csv(index=False).encode('utf-8')
+        st.download_button("Download Suspicious Logins", csv_suspicious, "suspicious_logins_with_explanations.csv", "text/csv")
+    else:
+        st.info("No suspicious data to download yet.")
+
+st.success("✅ Dashboard is live and updating automatically.")

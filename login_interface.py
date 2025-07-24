@@ -164,7 +164,7 @@ st.markdown("---")
 st.header("📊 View Live Dashboard")
 
 if st.button("Check Live Dashboard"):
-    dashboard_url = "https://lakshay-cyber-dashboard.streamlit.app"
-    js = f"window.open('{dashboard_url}')"  # JavaScript to open in new tab
-    st.markdown(f"<script>{js}</script>", unsafe_allow_html=True)
+    dashboard_url = "https://lakshay-cyber-agent-dashboard.streamlit.app"
+    st.markdown(f"[Click here to open your Live Dashboard 🚀]({dashboard_url})", unsafe_allow_html=True)
+
     
